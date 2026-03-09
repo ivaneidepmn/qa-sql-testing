@@ -45,25 +45,25 @@ This repository simulates real QA scenarios where database validation is require
 
 The goal of this project is to demonstrate how SQL is used by QA Engineers to:
 
-- validate stored application data
-- detect duplicated records
-- identify invalid values
-- verify relationships between tables
-- investigate bugs directly in the database
+- validate stored application data  
+- detect duplicated records  
+- identify invalid values  
+- verify relationships between tables  
+- investigate bugs directly in the database  
 
 These activities are common in roles such as:
 
-- QA Analyst
-- QA Automation Engineer
-- SDET
+- QA Analyst  
+- QA Automation Engineer  
+- SDET  
 
 ---
 
 # 🛠 Technologies
 
-- SQLite
-- SQL
-- DB Browser for SQLite
+- SQLite  
+- SQL  
+- DB Browser for SQLite  
 
 SQLite was chosen because it is **lightweight, easy to run locally, and ideal for testing scenarios**.
 
@@ -94,46 +94,29 @@ qa-sql-testing
 │
 └── README.md
 
+
+---
+
 # 🔎 Example SQL Validations
 
--- =====================================================
--- QA SQL TESTING
--- Database Validation Queries
--- =====================================================
-
-
--- =====================================================
+```sql
 -- Validate if a specific user exists
--- =====================================================
-
 SELECT *
 FROM users
 WHERE email = 'ana@email.com';
 
-
--- =====================================================
--- Detect duplicated users (duplicate email addresses)
--- =====================================================
-
+-- Detect duplicated users
 SELECT email, COUNT(*)
 FROM users
 GROUP BY email
 HAVING COUNT(*) > 1;
 
-
--- =====================================================
--- Detect invalid order values (negative total)
--- =====================================================
-
+-- Detect invalid order values
 SELECT *
 FROM orders
 WHERE total_value < 0;
 
-
--- =====================================================
--- Validate relationships between orders and users
--- =====================================================
-
+-- Validate relationships between tables
 SELECT
 orders.id,
 users.name,
@@ -143,63 +126,71 @@ orders.total_value
 FROM orders
 JOIN users
 ON orders.user_id = users.id;
-
-
--- =====================================================
--- BUG INVESTIGATION EXAMPLES
--- =====================================================
-
-
--- -----------------------------------------------------
--- Bug 1: Negative Order Value
--- -----------------------------------------------------
--- Query used to detect invalid order values
-
+🐞 Bug Investigation Examples
+Negative Order Value
 SELECT *
 FROM orders
 WHERE total_value < 0;
 
--- Result expected:
--- Orders with negative values indicate a potential issue
--- in business rule validation.
+This query identified an order with negative value (-50.0) indicating a potential validation issue in the system.
 
-
--- -----------------------------------------------------
--- Bug 2: Duplicate Email Detection
--- -----------------------------------------------------
--- Query used to detect duplicated user accounts
-
+Duplicate Email Detection
 SELECT email, COUNT(*)
 FROM users
 GROUP BY email
 HAVING COUNT(*) > 1;
 
--- Result expected:
--- If results are returned, duplicate email accounts exist.
+This query detects duplicated email records which indicates a missing uniqueness validation.
 
+📸 Evidence
+Users Table
 
--- =====================================================
--- QA Perspective
--- =====================================================
--- SQL is used by QA Engineers to:
--- Validate stored application data
--- Detect inconsistencies
--- Investigate bugs
--- Verify database integrity
--- Confirm business rule enforcement
+Orders Table
 
+Negative Order Value Detection
 
--- =====================================================
--- References
--- =====================================================
--- SQLite Documentation
--- https://sqlite.org/docs.html
+Duplicate Email Detection
 
--- DB Browser for SQLite
--- https://sqlitebrowser.org
+🧠 QA Perspective
 
--- SQL Tutorial
--- https://www.w3schools.com/sql/
+From a Quality Assurance perspective, SQL is essential for:
 
--- GitHub Documentation
--- https://docs.github.com
+validating application data
+
+detecting inconsistencies
+
+investigating bugs
+
+verifying database integrity
+
+confirming business rule enforcement
+
+QA Engineers frequently use SQL queries to confirm that the system stores and processes data correctly.
+
+🚀 QA Portfolio Projects
+<p align="center"> <a href="https://github.com/ivaneidepmn/qa-automation-cypress-framework"> <img src="https://github-readme-stats.vercel.app/api/pin/?username=ivaneidepmn&repo=qa-automation-cypress-framework"> </a> <a href="https://github.com/ivaneidepmn/qa-bug-hunt-demoqa"> <img src="https://github-readme-stats.vercel.app/api/pin/?username=ivaneidepmn&repo=qa-bug-hunt-demoqa"> </a> <a href="https://github.com/ivaneidepmn/qa-engineering-roadmap"> <img src="https://github-readme-stats.vercel.app/api/pin/?username=ivaneidepmn&repo=qa-engineering-roadmap"> </a> </p>
+
+These repositories demonstrate different aspects of Software Quality Engineering:
+
+QA Automation Framework – automated testing with Cypress
+
+Bug Investigation Lab – real bug discovery scenarios
+
+QA Engineering Roadmap – QA study path and concepts
+
+Together they form a complete QA Engineering portfolio.
+
+📚 References
+
+SQLite Documentation
+https://sqlite.org/docs.html
+
+DB Browser for SQLite
+https://sqlitebrowser.org
+
+SQL Tutorial
+https://www.w3schools.com/sql/
+
+GitHub Documentation
+https://docs.github.com
+
