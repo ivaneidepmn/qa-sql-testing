@@ -259,5 +259,4 @@ SQL Tutorial
 GitHub Documentation
 [https://docs.github.com](https://docs.github.com)
 
-````
 
