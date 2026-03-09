@@ -72,6 +72,7 @@ SQLite was chosen because it is **lightweight, easy to run locally, and ideal fo
 # 📂 Project Structure
 
 
+
 qa-sql-testing
 │
 ├── database
@@ -98,31 +99,32 @@ qa-sql-testing
 
 # 🔎 Example SQL Validations
 
-### Validate if a user exists
-
 ```sql
+-- =====================================================
+-- QA SQL TESTING
+-- Database Validation Queries
+-- =====================================================
+
+-- Validate if a specific user exists
 SELECT *
 FROM users
 WHERE email = 'ana@email.com';
 
----
-Detect duplicated users
 
+-- Detect duplicated users (duplicate email addresses)
 SELECT email, COUNT(*)
 FROM users
 GROUP BY email
 HAVING COUNT(*) > 1;
 
----
-Detect invalid order values
 
+-- Detect invalid order values (negative total)
 SELECT *
 FROM orders
 WHERE total_value < 0;
 
----
-Validate relationships between tables
 
+-- Validate relationships between orders and users
 SELECT
 orders.id,
 users.name,
@@ -133,57 +135,27 @@ FROM orders
 JOIN users
 ON orders.user_id = users.id;
 
----
-🐞 Bug Investigation Examples
 
-During SQL validation two inconsistencies were identified in the database.
+-- =====================================================
+-- BUG INVESTIGATION EXAMPLES
+-- =====================================================
 
-1️⃣ Negative Order Value
-
-Query used:
-
+-- Bug 1: Negative Order Value
 SELECT *
 FROM orders
 WHERE total_value < 0;
 
-Result:
-
-An order was identified with a negative value (-50.0).
-
-This indicates a potential issue in the business rules that should prevent orders with invalid values.
-
-Possible causes:
-
-missing backend validation
-
-incorrect business rule implementation
-
-API accepting invalid data
+-- Orders with negative values indicate potential
+-- issues in business rule validation.
 
 
-2️⃣ Duplicate Email Detection
-
-Query used:
-
+-- Bug 2: Duplicate Email Detection
 SELECT email, COUNT(*)
 FROM users
 GROUP BY email
 HAVING COUNT(*) > 1;
 
-Result:
-
-The query returned duplicated email records.
-
-This means the system allowed the creation of multiple accounts with the same email address.
-
-Possible causes:
-
-missing UNIQUE constraint in the database
-
-lack of validation in the registration API
-
-incorrect validation rules in the application
-
+-- If results are returned, duplicate email accounts exist.
 📸 Evidence
 Users Table
 
@@ -222,4 +194,5 @@ https://www.w3schools.com/sql/
 
 GitHub Documentation
 https://docs.github.com
+
 
