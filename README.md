@@ -94,37 +94,46 @@ qa-sql-testing
 │
 └── README.md
 
-
----
-
 # 🔎 Example SQL Validations
 
-```sql
 -- =====================================================
 -- QA SQL TESTING
 -- Database Validation Queries
 -- =====================================================
 
+
+-- =====================================================
 -- Validate if a specific user exists
+-- =====================================================
+
 SELECT *
 FROM users
 WHERE email = 'ana@email.com';
 
 
+-- =====================================================
 -- Detect duplicated users (duplicate email addresses)
+-- =====================================================
+
 SELECT email, COUNT(*)
 FROM users
 GROUP BY email
 HAVING COUNT(*) > 1;
 
 
+-- =====================================================
 -- Detect invalid order values (negative total)
+-- =====================================================
+
 SELECT *
 FROM orders
 WHERE total_value < 0;
 
 
+-- =====================================================
 -- Validate relationships between orders and users
+-- =====================================================
+
 SELECT
 orders.id,
 users.name,
@@ -140,59 +149,57 @@ ON orders.user_id = users.id;
 -- BUG INVESTIGATION EXAMPLES
 -- =====================================================
 
+
+-- -----------------------------------------------------
 -- Bug 1: Negative Order Value
+-- -----------------------------------------------------
+-- Query used to detect invalid order values
+
 SELECT *
 FROM orders
 WHERE total_value < 0;
 
--- Orders with negative values indicate potential
--- issues in business rule validation.
+-- Result expected:
+-- Orders with negative values indicate a potential issue
+-- in business rule validation.
 
 
+-- -----------------------------------------------------
 -- Bug 2: Duplicate Email Detection
+-- -----------------------------------------------------
+-- Query used to detect duplicated user accounts
+
 SELECT email, COUNT(*)
 FROM users
 GROUP BY email
 HAVING COUNT(*) > 1;
 
+-- Result expected:
 -- If results are returned, duplicate email accounts exist.
-📸 Evidence
-Users Table
-
-Orders Table
-
-Negative Order Value Detection
-
-Duplicate Email Detection
-
-🧠 QA Perspective
-
-From a Quality Assurance perspective, SQL is a powerful tool for:
-
-validating application data
-
-detecting inconsistencies
-
-investigating bugs
-
-verifying database integrity
-
-confirming business rule enforcement
-
-QA Engineers frequently use SQL queries to verify whether the system is correctly storing and processing application data.
-
-📚 References
-
-SQLite Documentation
-https://sqlite.org/docs.html
-
-DB Browser for SQLite
-https://sqlitebrowser.org
-
-SQL Tutorial
-https://www.w3schools.com/sql/
-
-GitHub Documentation
-https://docs.github.com
 
 
+-- =====================================================
+-- QA Perspective
+-- =====================================================
+-- SQL is used by QA Engineers to:
+-- Validate stored application data
+-- Detect inconsistencies
+-- Investigate bugs
+-- Verify database integrity
+-- Confirm business rule enforcement
+
+
+-- =====================================================
+-- References
+-- =====================================================
+-- SQLite Documentation
+-- https://sqlite.org/docs.html
+
+-- DB Browser for SQLite
+-- https://sqlitebrowser.org
+
+-- SQL Tutorial
+-- https://www.w3schools.com/sql/
+
+-- GitHub Documentation
+-- https://docs.github.com
