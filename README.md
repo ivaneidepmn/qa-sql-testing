@@ -2,26 +2,76 @@
   <img src="assets/qa-sql-testing-banner.png" width="100%" alt="QA SQL Testing Banner">
 </p>
 
-# 🗄️ QA SQL Testing Lab
+<h1 align="center">🗄️ QA SQL Testing Lab</h1>
 
 <p align="center">
-  <a href="https://github.com/ivaneidepmn/qa-sql-testing">
-    <img src="https://img.shields.io/badge/View_Project-0A66C2?style=for-the-badge&logo=github&logoColor=white">
-  </a>
-  <a href="https://github.com/ivaneidepmn/qa-sql-testing/tree/main/queries">
-    <img src="https://img.shields.io/badge/View_SQL_Queries-1F6FEB?style=for-the-badge&logo=sqlite&logoColor=white">
-  </a>
-  <a href="https://github.com/ivaneidepmn">
-    <img src="https://img.shields.io/badge/My_GitHub_Profile-24292E?style=for-the-badge&logo=github&logoColor=white">
-  </a>
+Real-world database validation scenarios using <b>SQL</b> to detect bugs, validate data integrity and support quality assurance investigations.
 </p>
 
+---
+
 <p align="center">
-  <img src="https://img.shields.io/badge/SQL-Database-blue">
-  <img src="https://img.shields.io/badge/SQLite-Lightweight-green">
-  <img src="https://img.shields.io/badge/QA-Data%20Validation-orange">
-  <img src="https://img.shields.io/badge/Testing-Database%20Testing-purple">
+
+<a href="#-example-sql-validations">
+<img src="https://img.shields.io/badge/🔎_Example_SQL_Validations-blue?style=for-the-badge">
+</a>
+
+<a href="#-bug-report-examples">
+<img src="https://img.shields.io/badge/🐞_Bug_Report_Examples-red?style=for-the-badge">
+</a>
+
+<a href="#-test-cases">
+<img src="https://img.shields.io/badge/🧪_Test_Cases-green?style=for-the-badge">
+</a>
+
+<a href="#-database-investigation-example">
+<img src="https://img.shields.io/badge/🧠_Database_Investigation-orange?style=for-the-badge">
+</a>
+
+<a href="#-evidence">
+<img src="https://img.shields.io/badge/📸_Evidence-purple?style=for-the-badge">
+</a>
+
+<a href="#-qa-perspective">
+<img src="https://img.shields.io/badge/🎯_QA_Perspective-black?style=for-the-badge">
+</a>
+
 </p>
+
+---
+
+<p align="center">
+
+<img src="https://img.shields.io/badge/SQL-Database_Testing-blue">
+<img src="https://img.shields.io/badge/SQLite-Lightweight_Database-green">
+<img src="https://img.shields.io/badge/QA-Bug_Investigation-red">
+<img src="https://img.shields.io/badge/Testing-Test_Cases-orange">
+<img src="https://img.shields.io/badge/Data-Validation-purple">
+
+</p>
+
+---
+
+# 📑 Table of Contents
+
+- About the Project
+- Project Objective
+- Technologies
+- Test Environment
+- Project Structure
+- Test Strategy
+- Example SQL Validations
+- Bug Report Examples
+- Test Cases
+- Database Investigation
+- Root Cause Analysis
+- Database Validation Checklist
+- QA Case Study
+- Evidence
+- QA Perspective
+- Future Improvements
+- References
+- Author
 
 ---
 
@@ -31,9 +81,9 @@ This repository demonstrates how **QA Engineers use SQL to validate application 
 
 Database validation is essential in software testing because many issues originate from:
 
-- incorrect data storage  
-- missing validation rules  
-- broken relationships between tables  
+- incorrect data storage
+- missing validation rules
+- broken relationships between tables
 
 This project simulates **real QA scenarios where database validation is required**.
 
@@ -63,7 +113,23 @@ These activities are common in roles such as:
 - SQL
 - DB Browser for SQLite
 
-SQLite was chosen because it is **lightweight, easy to run locally, and ideal for testing scenarios**.
+SQLite was chosen because it is **lightweight and ideal for testing environments**.
+
+---
+
+# 💻 Test Environment
+
+The testing environment used in this project:
+
+Database: SQLite  
+Tool: DB Browser for SQLite  
+
+Steps to run locally:
+
+1. Install **DB Browser for SQLite**
+2. Open the `sample-database.sql` file
+3. Execute SQL queries from the `queries` folder
+4. Validate the results
 
 ---
 
@@ -89,6 +155,26 @@ qa-sql-testing
 │
 └── README.md
 ```
+
+---
+
+# 🧭 Test Strategy
+
+This project focuses on **database validation and data integrity testing** using SQL queries.
+
+Scope includes:
+
+- business rule validation
+- constraint validation
+- relationship validation
+- data integrity verification
+
+Test types used:
+
+- data validation testing
+- constraint validation
+- relationship testing
+- bug investigation using SQL queries
 
 ---
 
@@ -123,14 +209,14 @@ WHERE total_value < 0;
 
 ```sql
 SELECT
-    orders.id,
-    users.name,
-    users.email,
-    orders.product_name,
-    orders.total_value
+orders.id,
+users.name,
+users.email,
+orders.product_name,
+orders.total_value
 FROM orders
 JOIN users
-    ON orders.user_id = users.id;
+ON orders.user_id = users.id;
 ```
 
 ---
@@ -139,9 +225,7 @@ JOIN users
 
 ## Bug 001 — Negative Order Value
 
-Severity: **High**
-
-### SQL Used
+Severity: High
 
 ```sql
 SELECT *
@@ -149,21 +233,17 @@ FROM orders
 WHERE total_value < 0;
 ```
 
-### Issue
+Issue:
 
-An order was found with **negative value (-50.0)**.
+An order with value **-50.0** was detected.
 
-### Expected Behavior
-
-Orders should never have negative values.
-
-### Possible Causes
+Possible causes:
 
 - missing backend validation
 - incorrect business rule implementation
-- API accepting invalid data
+- API accepting invalid values
 
-### Evidence
+Evidence:
 
 `assets/negative-order-bug.png`
 
@@ -171,9 +251,7 @@ Orders should never have negative values.
 
 ## Bug 002 — Duplicate Email
 
-Severity: **Medium**
-
-### SQL Used
+Severity: Medium
 
 ```sql
 SELECT email, COUNT(*)
@@ -182,21 +260,17 @@ GROUP BY email
 HAVING COUNT(*) > 1;
 ```
 
-### Issue
+Issue:
 
-Multiple users registered with the **same email**.
+Multiple users registered with the same email.
 
-### Expected Behavior
-
-Each user should have a **unique email address**.
-
-### Possible Causes
+Possible causes:
 
 - missing UNIQUE constraint
-- missing API validation
-- incorrect business rules
+- missing validation in registration API
+- incorrect business rule validation
 
-### Evidence
+Evidence:
 
 `assets/duplicate-email-bug.png`
 
@@ -204,12 +278,12 @@ Each user should have a **unique email address**.
 
 # 🧪 Test Cases
 
-## Test Case 001 — Register user with valid data
+### Test Case 001 — Register user with valid data
 
 Steps:
 
 1. Access registration page
-2. Enter valid user information
+2. Enter valid information
 3. Submit form
 
 Expected result:
@@ -218,12 +292,12 @@ User should be created successfully.
 
 ---
 
-## Test Case 002 — Prevent duplicate email registration
+### Test Case 002 — Prevent duplicate email registration
 
 Steps:
 
 1. Register user with email `test@email.com`
-2. Try registering another user with same email
+2. Attempt to register another user with the same email
 
 Expected result:
 
@@ -231,7 +305,7 @@ System should block the registration.
 
 ---
 
-## Test Case 003 — Validate required fields
+### Test Case 003 — Validate required fields
 
 Steps:
 
@@ -240,13 +314,13 @@ Steps:
 
 Expected result:
 
-Validation error should appear.
+Validation error message should appear.
 
 ---
 
 # 🔎 Database Investigation Example
 
-During database testing the following query was executed:
+Query executed:
 
 ```sql
 SELECT *
@@ -254,19 +328,11 @@ FROM orders
 WHERE total_value < 0;
 ```
 
-### Finding
+Finding:
 
-An order with negative value was detected.
+Order with negative value detected.
 
-### Impact
-
-This issue could cause:
-
-- incorrect financial calculations
-- reporting inconsistencies
-- business rule violations
-
-### Additional Validation
+Additional validation:
 
 ```sql
 SELECT email, COUNT(*)
@@ -275,14 +341,95 @@ GROUP BY email
 HAVING COUNT(*) > 1;
 ```
 
-Result: duplicate email records found.
+Result:
 
-### Conclusion
+Duplicate email records detected.
 
-Database validation revealed issues related to:
+---
 
-- financial data integrity
-- uniqueness constraints
+# 🔍 Root Cause Analysis
+
+## Issue 1 — Negative Order Value
+
+Possible causes:
+
+- missing backend validation
+- incorrect business rules
+
+Impact:
+
+- incorrect financial calculations
+- reporting inconsistencies
+
+---
+
+## Issue 2 — Duplicate Email Records
+
+Possible causes:
+
+- missing UNIQUE constraint
+- missing validation in API
+
+Impact:
+
+- duplicate user accounts
+- authentication issues
+
+---
+
+# ✅ Database Validation Checklist
+
+- [x] Duplicate record detection
+- [x] Negative value validation
+- [x] Required field validation
+- [x] Relationship integrity verification
+- [x] Business rule validation
+- [x] Investigation of inconsistent data
+
+---
+
+# 📊 QA Case Study — Database Bug Investigation
+
+## Context
+
+Database validation revealed inconsistencies in stored application data.
+
+Issues identified:
+
+- negative order values
+- duplicate email registrations
+
+---
+
+## QA Approach
+
+Steps performed:
+
+1. analyze database schema
+2. run validation queries
+3. detect anomalies
+4. verify business rules
+5. document findings
+
+---
+
+## Impact Analysis
+
+Potential impacts:
+
+- incorrect financial reporting
+- duplicate accounts
+- inconsistent system behavior
+
+---
+
+## QA Recommendation
+
+Recommended actions:
+
+- enforce backend validation
+- add database constraints
+- implement automated validation tests
 
 ---
 
@@ -290,40 +437,34 @@ Database validation revealed issues related to:
 
 Examples of investigation artifacts:
 
-- Users table
-- Orders table
-- Negative order detection
-- Duplicate email detection
-
-These screenshots simulate how QA engineers **document database issues during investigations**.
+- users table screenshot
+- orders table screenshot
+- negative order detection
+- duplicate email detection
 
 ---
 
-# 🧠 QA Perspective
+# 🎯 QA Perspective
 
-From a **Quality Assurance perspective**, SQL is essential for:
+From a **Quality Assurance perspective**, SQL is an essential skill for:
 
 - validating application data
 - detecting inconsistencies
 - investigating bugs
 - verifying database integrity
-- confirming business rule enforcement
-
-QA Engineers frequently use SQL queries to confirm whether the system **stores and processes data correctly**.
+- supporting root cause analysis
 
 ---
 
-# 🚀 QA Portfolio Projects
+# 🚀 Future Improvements
 
-This repository is part of a broader **Software Quality Engineering portfolio**.
+Planned enhancements for this project:
 
-Related projects:
-
-- QA Automation Framework – Cypress automation
-- Bug Investigation Lab – QA bug scenarios
-- QA Engineering Roadmap – study documentation
-
-Together they demonstrate **practical QA Engineering skills**.
+- automated SQL validation scripts
+- API testing integration
+- CI/CD pipeline for database testing
+- data validation automation
+- performance testing scenarios
 
 ---
 
@@ -353,4 +494,3 @@ QA Engineer focused on:
 - Test Automation
 - Database Testing
 - CI/CD and Quality Strategy
-
