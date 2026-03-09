@@ -99,8 +99,8 @@ qa-sql-testing
 │
 └── README.md
 
-
----
+```
+------
 
 # 🔎 Example SQL Validations
 
